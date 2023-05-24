@@ -11,7 +11,7 @@ const path = require("path");
 const getBasePath = require("../../getBasePath");
 const express = require('express');
 
-
+// const build=require('../../Client/build')
 module.exports = async (app) => {
   // app.use("/api", (req, res) => {
   //   res.json({
@@ -22,8 +22,8 @@ module.exports = async (app) => {
   app.use("/api/product", productRoutes);
   app.use("/api/cart", CartRoutes);
   app.use("/api/order", orderRoutes);
-  // app.use(express.static(path.join(__dirname, "../../Client/build")))
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.join(__dirname, "../../Client/build/index.html"));
-  // });
+  app.use(express.static(path.join(__dirname, "../../Client/build")))
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../Client/build/index.html"));
+  });
 };
