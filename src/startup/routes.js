@@ -13,11 +13,11 @@ const express = require('express');
 
 
 module.exports = async (app) => {
-  app.use("/api", (req, res) => {
-    res.json({
-      message: 'deployed success'
-    })
-  });
+  // app.use("/api", (req, res) => {
+  //   res.json({
+  //     message: 'deployed success'
+  //   })
+  // });
   app.use("/api/user", userRoutes);
   app.use("/api/product", productRoutes);
   app.use("/api/cart", CartRoutes);
