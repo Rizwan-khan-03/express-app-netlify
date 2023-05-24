@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
 		};
 		console.log(req.body)
 		// user.password =CryptoJS.AES.encrypt(req.body.password, process.env.PASS_KEY).toString();
-		const sameUserExist = await UserModal.exists({email});
+		const sameUserExist = await UserModal.exists({ email }).maxTime(5000);
 		if (sameUserExist){
 		  throw Error(`User with email (${email}) already exist.`)	
 		}

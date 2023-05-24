@@ -5,7 +5,8 @@ const getToken = require('../../Auth/getToken')
 module.exports = async (req, res) => {
 
     try {
-        const user = await UserModal.findOne({ email: req.body.email });
+        const user = await UserModal.findOne({ email: req.body.email }).maxTime(5000);
+
         !user && res.status(400).send({ payload: {}, message: "User Not Found" });
 
         // const hashedPssword = CryptoJS.AES.decrypt(user.password, process.env.PASS_KEY);
