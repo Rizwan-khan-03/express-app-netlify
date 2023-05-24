@@ -1,29 +1,30 @@
+// const express = require('express');
 const {
   userRoutes,
   productRoutes,
   CartRoutes,
   orderRoutes,
-  // projectRoutes,
-  // renderxRoutes,
-  // consumerRoutes,
 } = require("../service/routesIndex");
 const path = require("path");
-const getBasePath = require("../../getBasePath");
-const express = require('express');
+const app = express();
+const serverless = require("serverless-http");
 
-// const build=require('../../Client/build')
-module.exports = async (app) => {
-  // app.use("/api", (req, res) => {
-  //   res.json({
-  //     message: 'deployed success'
-  //   })
-  // });
-  app.use("/api/user", userRoutes);
-  app.use("/api/product", productRoutes);
-  app.use("/api/cart", CartRoutes);
-  app.use("/api/order", orderRoutes);
-  app.use(express.static(path.join(__dirname, "../../Client/build")))
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../Client/build/index.html"));
-  });
-};
+const router = express.Router();
+
+router.use("/user", userRoutes);
+router.use("/product", productRoutes);
+router.use("/cart", CartRoutes);
+router.use("/order", orderRoutes);
+
+app.use("/api", router);
+
+// Serve static files from the "Client/build" directory
+app.use(express.static(path.join(__dirname, "../../Client/build")));
+
+// Serve the index.html file for any other routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../Client/build/index.html"));
+});
+
+// Export the app as a Netlify serverless function
+module.exports.handler = serverless(app);
