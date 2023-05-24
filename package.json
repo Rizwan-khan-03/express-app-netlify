@@ -2,11 +2,14 @@
   "name": "nodeex",
   "version": "1.0.0",
   "main": "app.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "start": "node src/index.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
