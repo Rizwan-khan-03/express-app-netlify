@@ -4,17 +4,17 @@ const dotenv = require('dotenv').config();
 module.exports = async () => {
   const DB_CONNECTION_STRING =process.env.MONGO_URL;
   const url = DB_CONNECTION_STRING || "mongodb://localhost:27017";
-  logger.info(`Connected url...${url}`);
+  // logger.info(`Connected url...${url}`);
   const dbName = "NEWECOM";
   try {
-    await mongoose.connect(url, {
+    await mongoose.createConnection(url, {
       dbName,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       autoIndex: true,
-      connectTimeoutMS: 100000,
+      connectTimeoutMS: 30000,
     });
-    logger.info(`Connected to Database...`);
+    logger.info(`Connected to Database...${url}`);
   } catch (err) {
     logger.error(`failed to connect to ${url}: ${err}`);
   }
